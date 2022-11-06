@@ -10,7 +10,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@bam.tech/react-native-make": "3.0.3",
     "@notifee/react-native": "4.0.1",
     "@react-native-community/netinfo": "8.0.0",
     "@react-native-firebase/app": "13.0.1",
