@@ -1,10 +1,8 @@
 package com.pitel;
 
 import android.app.Application;
-import android.app.Activity;
 import android.content.Context;
 
-import com.clevertap.android.sdk.interfaces.NotificationHandler;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
@@ -13,18 +11,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import com.clevertap.react.CleverTapApplication;
-import android.app.Application.ActivityLifecycleCallbacks;
-import android.os.Bundle;
-import android.util.Log;
-
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.clevertap.android.sdk.ActivityLifecycleCallback;
-import com.clevertap.react.CleverTapPackage;
-import com.clevertap.android.sdk.CleverTapAPI;
 import com.microsoft.codepush.react.CodePush;
 
 public class MainApplication extends Application implements ReactApplication {
