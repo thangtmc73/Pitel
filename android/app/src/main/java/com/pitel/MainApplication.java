@@ -25,6 +25,7 @@ import androidx.annotation.Nullable;
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.react.CleverTapPackage;
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.microsoft.codepush.react.CodePush;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -48,6 +49,11 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         protected String getJSMainModuleName() {
           return "index";
+        }
+
+        @Override
+        protected String getJSBundleFile() {
+            return CodePush.getJSBundleFile();
         }
       };
 
