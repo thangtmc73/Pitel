@@ -110,7 +110,7 @@ def enableProguardInReleaseBuilds = false
  * give correct results when using with locales other than en-US.  Note that
  * this variant is about 6MiB larger per architecture than default.
  */
-def jscFlavor = 'org.webkit:android-jsc:+'
+def jscFlavor = 'org.webkit:android-jsc-intl:+'
 
 /**
  * Whether to enable the Hermes VM.
@@ -192,28 +192,96 @@ android {
 
         }
     }
+
+    packagingOptions {
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/x86_64/libjsc.so'
+        pickFirst 'lib/arm64-v8a/libjsc.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+//    implementation('co.hyperverge:hypersnapsdk:3.6.19@aar', {
+//        transitive = true
+//        exclude group: 'com.android.support', module: 'appcompat'
+//        exclude group: 'com.google.android.gms'
+//        exclude group: 'co.hyperverge', module: 'hypersnapsdk-instructions'
+//        exclude group: 'co.hyperverge', module: 'hypersnapsdk-qrscanner'
+//        exclude group: 'co.hyperverge', module: 'hypersnap-pdfconverter'
+//    })
+
+//    implementation(name: 'payoo-payment-sdk-release-3.0.0-RC15', ext: 'aar') { transitive = true }
+//    implementation(name: 'payoo-sdk-core-release-1.0.4-RC1', ext: 'aar') { transitive = true }
+
+    //Android library
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.14'
+    implementation 'com.squareup.okhttp3:okhttp:4.8.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.browser:browser:1.3.0'
+
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation platform('com.google.firebase:firebase-bom:31.0.1')
-    implementation 'com.google.firebase:firebase-crashlytics'
-    implementation 'com.google.firebase:firebase-analytics'
+
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
+    implementation "com.facebook.android:facebook-android-sdk:latest.release"
+
+    implementation "androidx.appcompat:appcompat:1.1.0-rc01"
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02"
+
+    implementation project(':react-native-gesture-handler')
+
+    implementation project(':react-native-otp-verify')
+
+    implementation project(':react-native-splash-screen')
+
+    implementation 'com.clevertap.android:clevertap-android-sdk:4.4.0'
+    implementation "com.clevertap.android:push-templates:1.0.0"
+    implementation 'androidx.core:core:1.3.0'
+    implementation 'androidx.fragment:fragment:1.3.6'
+    implementation 'com.google.firebase:firebase-messaging:17.3.3'
+    implementation 'com.google.android.gms:play-services-base:16.0.1'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+    //MANDATORY for App Inbox
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.viewpager:viewpager:1.0.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    //Optional ExoPlayer Libraries for Audio/Video Inbox Messages. Audio/Video messages will be dropped without these dependencies
+
+    implementation 'com.google.android.exoplayer:exoplayer:2.15.1'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.15.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.15.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.fbjni'
+        exclude group: 'com.facebook.fbjni'
     }
 
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
-        exclude group:'com.squareup.okhttp3', module:'okhttp'
+        exclude group: 'com.facebook.flipper'
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
 
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
+        exclude group: 'com.facebook.flipper'
     }
 
     if (enableHermes) {
@@ -223,25 +291,6 @@ dependencies {
     } else {
         implementation jscFlavor
     }
-
-    implementation 'androidx.core:core:1.3.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'       //Mandatory for App Inbox
-    implementation 'androidx.fragment:fragment:1.3.6'         //Mandatory for InApp
-    implementation 'androidx.recyclerview:recyclerview:1.2.1' //Mandatory for App Inbox
-    implementation 'androidx.viewpager:viewpager:1.0.0'       //Mandatory for App Inbox
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-
-    //com.android
-    implementation 'com.android.installreferrer:installreferrer:2.2' //Mandatory for React Native SDK v0.3.9+
-    implementation 'com.android.support:multidex:1.0.3'
-
-    //com.google
-    implementation 'com.google.android.gms:play-services-base:17.6.0'
-    implementation 'com.google.firebase:firebase-messaging:21.0.0'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'com.clevertap.android:clevertap-android-sdk:4.6.1'
-    implementation 'com.github.bumptech.glide:glide:4.12.0' //Mandatory for App Inbox
-    implementation project(':clevertap-react-native')
 }
 
 // Run this once to be able to run the application with BUCK
@@ -252,3 +301,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply plugin: 'com.google.gms.google-services'
+//apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
