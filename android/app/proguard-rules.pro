@@ -9,3 +9,6 @@
 
 # Add any project specific keep options here:
 -keep class org.webrtc.** { *; }
+-keep class com.pitel.** { *; }
+-keep class com.facebook.react.devsupport.** { *; }
+
