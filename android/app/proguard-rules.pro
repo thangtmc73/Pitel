@@ -12,3 +12,6 @@
 -keep class com.pitel.** { *; }
 -keep class com.facebook.react.devsupport.** { *; }
 
+# react-native-reanimated
+-keep class com.swmansion.reanimated.** { *; }
+-keep class com.facebook.react.turbomodule.** { *; }
