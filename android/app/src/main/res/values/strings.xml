@@ -3,4 +3,6 @@
     <string name="CodePushDeploymentKey" moduleConfig="true" translatable="false">112345</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+    <string name="facebook_app_id">1343643482425305</string>
+    <string name="facebook_client_token">56789</string>
 </resources>
