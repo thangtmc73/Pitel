@@ -37,6 +37,11 @@ File `android/app/proguard-rules.pro`
 --keep class org.webrtc.** { *; }
 +-keep class org.webrtc.** { *; }
 +-keep class <your package>.** { *; }
+# Example: java.lang.ClassNotFoundException: Didn't find class "com.example.MainActivity" on path: DexPathList
+# you can use:
+# -keep class com.example.** { *; }
+# or
+# -keep class com.example.MainActivity { *; }
 ```
 ## References
 https://developer.android.com/studio/build/shrink-code
